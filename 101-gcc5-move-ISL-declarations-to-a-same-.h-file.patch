@@ -1,0 +1,246 @@
+From c4ef8b063ede55290998f3dccba83e3023158077 Mon Sep 17 00:00:00 2001
+From: Tim S <tim.stahlhut@gmail.com>
+Date: Fri, 3 May 2019 04:43:43 -0400
+Subject: move ISL declarations to a same .h file
+
+Backport of SVN 230825 from mainline
+
+2015-11-23  Aditya Kumar  <aditya.k7@samsung.com>
+	    Sebastian Pop  <s.pop@samsung.com>
+
+	* graphite-dependences.c: Only include graphite.h.
+	* graphite-isl-ast-to-gimple.c: Same.
+	* graphite-optimize-isl.c: Same.
+	* graphite-poly.c: Same.
+	* graphite-scop-detection.c: Same.
+	* graphite-sese-to-poly.c: Same.
+	* graphite.c: Same.
+	* graphite-isl-ast-to-gimple.h: Move to graphite.h.
+	* graphite-poly.h: Same.
+	* graphite-scop-detection.h: Same.
+	* graphite.h: New.
+---
+ gcc/graphite-blocking.c             |  2 +-
+ gcc/graphite-dependences.c          |  2 +-
+ gcc/graphite-interchange.c          |  2 +-
+ gcc/graphite-isl-ast-to-gimple.c    |  3 +--
+ gcc/graphite-isl-ast-to-gimple.h    | 26 --------------------------
+ gcc/graphite-optimize-isl.c         |  2 +-
+ gcc/graphite-poly.c                 |  2 +-
+ gcc/graphite-scop-detection.c       |  3 +--
+ gcc/graphite-scop-detection.h       | 29 -----------------------------
+ gcc/graphite-sese-to-poly.c         |  2 +-
+ gcc/graphite.c                      |  4 +---
+ gcc/{graphite-poly.h => graphite.h} |  4 ++++
+ 12 files changed, 13 insertions(+), 68 deletions(-)
+ delete mode 100644 gcc/graphite-isl-ast-to-gimple.h
+ delete mode 100644 gcc/graphite-scop-detection.h
+ rename gcc/{graphite-poly.h => graphite.h} (99%)
+
+diff --git a/gcc/graphite-blocking.c b/gcc/graphite-blocking.c
+index 4557c9d99a1..5a4c3f1d770 100644
+--- a/gcc/graphite-blocking.c
++++ b/gcc/graphite-blocking.c
+@@ -66,7 +66,7 @@ along with GCC; see the file COPYING3.  If not see
+ #include "sese.h"
+ 
+ #ifdef HAVE_isl
+-#include "graphite-poly.h"
++#include "graphite.h"
+ 
+ 
+ /* Strip mines with a factor STRIDE the scattering (time) dimension
+diff --git a/gcc/graphite-dependences.c b/gcc/graphite-dependences.c
+index afde45f063b..0b5d4f53510 100644
+--- a/gcc/graphite-dependences.c
++++ b/gcc/graphite-dependences.c
+@@ -67,7 +67,7 @@ along with GCC; see the file COPYING3.  If not see
+ #include "sese.h"
+ 
+ #ifdef HAVE_isl
+-#include "graphite-poly.h"
++#include "graphite.h"
+ 
+ isl_union_map *
+ scop_get_dependences (scop_p scop)
+diff --git a/gcc/graphite-interchange.c b/gcc/graphite-interchange.c
+index 2750ddf3cda..1b7a3340a54 100644
+--- a/gcc/graphite-interchange.c
++++ b/gcc/graphite-interchange.c
+@@ -79,7 +79,7 @@ extern "C" {
+ #include "sese.h"
+ 
+ #ifdef HAVE_isl
+-#include "graphite-poly.h"
++#include "graphite.h"
+ 
+ /* XXX isl rewrite following comment */
+ /* Builds a linear expression, of dimension DIM, representing PDR's
+diff --git a/gcc/graphite-isl-ast-to-gimple.c b/gcc/graphite-isl-ast-to-gimple.c
+index 3216460b625..5b87bdc14ec 100644
+--- a/gcc/graphite-isl-ast-to-gimple.c
++++ b/gcc/graphite-isl-ast-to-gimple.c
+@@ -78,8 +78,7 @@ extern "C" {
+ #include "tree-into-ssa.h"
+ 
+ #ifdef HAVE_isl
+-#include "graphite-poly.h"
+-#include "graphite-isl-ast-to-gimple.h"
++#include "graphite.h"
+ 
+ /* This flag is set when an error occurred during the translation of
+    ISL AST to Gimple.  */
+diff --git a/gcc/graphite-isl-ast-to-gimple.h b/gcc/graphite-isl-ast-to-gimple.h
+deleted file mode 100644
+index dc8a93409e4..00000000000
+--- a/gcc/graphite-isl-ast-to-gimple.h
++++ /dev/null
+@@ -1,26 +0,0 @@
+-/* Translation of ISL AST to Gimple.
+-   Copyright (C) 2014-2015 Free Software Foundation, Inc.
+-   Contributed by Roman Gareev <gareevroman@gmail.com>.
+-
+-This file is part of GCC.
+-
+-GCC is free software; you can redistribute it and/or modify
+-it under the terms of the GNU General Public License as published by
+-the Free Software Foundation; either version 3, or (at your option)
+-any later version.
+-
+-GCC is distributed in the hope that it will be useful,
+-but WITHOUT ANY WARRANTY; without even the implied warranty of
+-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+-GNU General Public License for more details.
+-
+-You should have received a copy of the GNU General Public License
+-along with GCC; see the file COPYING3.  If not see
+-<http://www.gnu.org/licenses/>.  */
+-
+-#ifndef GCC_GRAPHITE_ISL_AST_TO_GIMPLE_H
+-#define GCC_GRAPHITE_ISL_AST_TO_GIMPLE_H
+-
+-extern bool graphite_regenerate_ast_isl (scop_p);
+-
+-#endif
+diff --git a/gcc/graphite-optimize-isl.c b/gcc/graphite-optimize-isl.c
+index e0c566be388..3eb3156e6b7 100644
+--- a/gcc/graphite-optimize-isl.c
++++ b/gcc/graphite-optimize-isl.c
+@@ -69,7 +69,7 @@ along with GCC; see the file COPYING3.  If not see
+ #include "sese.h"
+ 
+ #ifdef HAVE_isl
+-#include "graphite-poly.h"
++#include "graphite.h"
+ 
+ static isl_union_set *
+ scop_get_domains (scop_p scop ATTRIBUTE_UNUSED)
+diff --git a/gcc/graphite-poly.c b/gcc/graphite-poly.c
+index c5287d2aaac..e7b443c8e0b 100644
+--- a/gcc/graphite-poly.c
++++ b/gcc/graphite-poly.c
+@@ -80,7 +80,7 @@ extern "C" {
+ #include "sese.h"
+ 
+ #ifdef HAVE_isl
+-#include "graphite-poly.h"
++#include "graphite.h"
+ 
+ #define OPENSCOP_MAX_STRING 256
+ 
+diff --git a/gcc/graphite-scop-detection.c b/gcc/graphite-scop-detection.c
+index 522213ffea1..a743b0641d4 100644
+--- a/gcc/graphite-scop-detection.c
++++ b/gcc/graphite-scop-detection.c
+@@ -74,8 +74,7 @@ along with GCC; see the file COPYING3.  If not see
+ #include "cp/cp-tree.h"
+ 
+ #ifdef HAVE_isl
+-#include "graphite-poly.h"
+-#include "graphite-scop-detection.h"
++#include "graphite.h"
+ 
+ /* Forward declarations.  */
+ static void make_close_phi_nodes_unique (basic_block);
+diff --git a/gcc/graphite-scop-detection.h b/gcc/graphite-scop-detection.h
+deleted file mode 100644
+index 8e794c3a540..00000000000
+--- a/gcc/graphite-scop-detection.h
++++ /dev/null
+@@ -1,29 +0,0 @@
+-/* Detection of Static Control Parts (SCoP) for Graphite.
+-   Copyright (C) 2009-2015 Free Software Foundation, Inc.
+-   Contributed by Sebastian Pop <sebastian.pop@amd.com> and
+-   Tobias Grosser <grosser@fim.uni-passau.de>.
+-
+-This file is part of GCC.
+-
+-GCC is free software; you can redistribute it and/or modify
+-it under the terms of the GNU General Public License as published by
+-the Free Software Foundation; either version 3, or (at your option)
+-any later version.
+-
+-GCC is distributed in the hope that it will be useful,
+-but WITHOUT ANY WARRANTY; without even the implied warranty of
+-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+-GNU General Public License for more details.
+-
+-You should have received a copy of the GNU General Public License
+-along with GCC; see the file COPYING3.  If not see
+-<http://www.gnu.org/licenses/>.  */
+-
+-#ifndef GCC_GRAPHITE_SCOP_DETECTION_H
+-#define GCC_GRAPHITE_SCOP_DETECTION_H
+-
+-extern void build_scops (vec<scop_p> *);
+-extern void dot_all_scops (vec<scop_p> );
+-extern void dot_scop (scop_p);
+-
+-#endif /* GCC_GRAPHITE_SCOP_DETECTION_H */
+diff --git a/gcc/graphite-sese-to-poly.c b/gcc/graphite-sese-to-poly.c
+index 4230f62051b..ec2f718a278 100644
+--- a/gcc/graphite-sese-to-poly.c
++++ b/gcc/graphite-sese-to-poly.c
+@@ -103,7 +103,7 @@ extern "C" {
+ #include "varasm.h"
+ #include "stmt.h"
+ #include "expr.h"
+-#include "graphite-poly.h"
++#include "graphite.h"
+ #include "graphite-sese-to-poly.h"
+ 
+ 
+diff --git a/gcc/graphite.c b/gcc/graphite.c
+index a0cf455b9a8..44222825293 100644
+--- a/gcc/graphite.c
++++ b/gcc/graphite.c
+@@ -86,9 +86,7 @@ along with GCC; see the file COPYING3.  If not see
+ 
+ #ifdef HAVE_isl
+ 
+-#include "graphite-poly.h"
+-#include "graphite-scop-detection.h"
+-#include "graphite-isl-ast-to-gimple.h"
++#include "graphite.h"
+ #include "graphite-sese-to-poly.h"
+ 
+ /* Print global statistics to FILE.  */
+diff --git a/gcc/graphite-poly.h b/gcc/graphite.h
+similarity index 99%
+rename from gcc/graphite-poly.h
+rename to gcc/graphite.h
+index aa7b07c399c..29e36dd6140 100644
+--- a/gcc/graphite-poly.h
++++ b/gcc/graphite.h
+@@ -412,6 +412,10 @@ extern bool flatten_all_loops (scop_p);
+ extern bool optimize_isl (scop_p);
+ extern void pbb_number_of_iterations_at_time (poly_bb_p, graphite_dim_t, mpz_t);
+ extern void debug_gmp_value (mpz_t);
++extern void build_scops (vec<scop_p> *);
++extern void dot_all_scops (vec<scop_p> );
++extern void dot_scop (scop_p);
++extern bool graphite_regenerate_ast_isl (scop_p);
+ 
+ /* Return the number of write data references in PBB.  */
+ 
+-- 

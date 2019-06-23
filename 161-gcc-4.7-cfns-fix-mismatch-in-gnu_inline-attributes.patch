@@ -4,6 +4,7 @@ Date: Mon, 14 Jan 2019 08:07:54 -0500
 Subject: cfns: fix mismatch in gnu_inline attributes
 
 2015-08-06  Mike Frysinger  <vapier@gentoo.org>
+from https://patchwork.ozlabs.org/patch/504982/
 
 ---
  gcc/cp/cfns.gperf | 3 +++

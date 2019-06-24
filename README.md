@@ -7,3 +7,4 @@ Patch files for GCC
 14x patches are GCC internal library fixes
 15x patches are ISL build fixes
 16x patches are build fixes created by others
+17x patches are for building cross compilers

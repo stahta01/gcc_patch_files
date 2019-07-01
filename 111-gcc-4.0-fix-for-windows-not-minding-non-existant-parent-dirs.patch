@@ -1,7 +1,18 @@
-diff -urN gcc-4.8.2.orig/libcpp/files.c gcc-4.8.2/libcpp/files.c
---- gcc-4.8.2.orig/libcpp/files.c	2013-03-06 16:18:40.000000000 +0000
-+++ gcc-4.8.2/libcpp/files.c	2013-12-23 13:38:19.780368200 +0000
-@@ -30,6 +30,13 @@
+From 737d284556dc37c51b0251edd411f51c5d83e821 Mon Sep 17 00:00:00 2001
+From: Tim Stahlhut <stahta01@gmail.com>
+Date: Wed, 26 Jun 2019 19:25:45 -0400
+Subject: fix for windows not minding non existant parent dirs
+
+Created by someone other than me.
+---
+ libcpp/files.c | 87 ++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 87 insertions(+)
+
+diff --git a/libcpp/files.c b/libcpp/files.c
+index 29ccf3b7013..13cae5e6e2b 100644
+--- a/libcpp/files.c
++++ b/libcpp/files.c
+@@ -32,6 +32,13 @@ along with this program; see the file COPYING3.  If not see
  #include "md5.h"
  #include <dirent.h>
  
@@ -15,7 +26,7 @@ diff -urN gcc-4.8.2.orig/libcpp/files.c gcc-4.8.2/libcpp/files.c
  /* Variable length record files on VMS will have a stat size that includes
     record control characters that won't be included in the read size.  */
  #ifdef VMS
-@@ -198,6 +205,49 @@
+@@ -197,6 +204,49 @@ static int pchf_save_compare (const void *e1, const void *e2);
  static int pchf_compare (const void *d_p, const void *e_p);
  static bool check_file_against_entries (cpp_reader *, _cpp_file *, bool);
  
@@ -65,7 +76,7 @@ diff -urN gcc-4.8.2.orig/libcpp/files.c gcc-4.8.2/libcpp/files.c
  /* Given a filename in FILE->PATH, with the empty string interpreted
     as <stdin>, open it.
  
-@@ -227,6 +277,43 @@
+@@ -226,6 +276,43 @@ open_file (_cpp_file *file)
      }
    else
      file->fd = open (file->path, O_RDONLY | O_NOCTTY | O_BINARY, 0666);
@@ -109,3 +120,4 @@ diff -urN gcc-4.8.2.orig/libcpp/files.c gcc-4.8.2/libcpp/files.c
  
    if (file->fd != -1)
      {
+-- 

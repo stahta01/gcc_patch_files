@@ -1,7 +1,18 @@
-diff -urN gcc-4.8.2.orig/libiberty/lrealpath.c gcc-4.8.2/libiberty/lrealpath.c
---- gcc-4.8.2.orig/libiberty/lrealpath.c	2013-12-21 20:21:26.446076700 +0000
-+++ gcc-4.8.2/libiberty/lrealpath.c	2013-12-22 02:56:54.800559500 +0000
-@@ -138,15 +138,26 @@
+From 6ee5629570f76f89a9735f998bef58491e67d790 Mon Sep 17 00:00:00 2001
+From: Tim Stahlhut <stahta01@gmail.com>
+Date: Thu, 27 Jun 2019 09:38:31 -0400
+Subject: windows lrealpath no force lowercase nor backslash
+
+Created by someone other than me.
+---
+ libiberty/lrealpath.c | 19 +++++++++++++++----
+ 1 file changed, 15 insertions(+), 4 deletions(-)
+
+diff --git a/libiberty/lrealpath.c b/libiberty/lrealpath.c
+index b27c8de990e..423d1286071 100644
+--- a/libiberty/lrealpath.c
++++ b/libiberty/lrealpath.c
+@@ -138,15 +138,26 @@ lrealpath (const char *filename)
    {
      char buf[MAX_PATH];
      char* basename;
@@ -32,3 +43,4 @@ diff -urN gcc-4.8.2.orig/libiberty/lrealpath.c gcc-4.8.2/libiberty/lrealpath.c
          return strdup (buf);
        }
    }
+-- 

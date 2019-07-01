@@ -1,6 +1,18 @@
---- gcc-4.8.2/gcc/config/i386/xm-mingw32.h.orig	2013-01-11 00:38:27.000000000 +0400
-+++ gcc-4.8.2/gcc/config/i386/xm-mingw32.h	2014-04-14 22:32:15.278200000 +0400
-@@ -29,6 +29,10 @@
+From e5d9ab7edd6fa1edf380345cecd6645a81b1e806 Mon Sep 17 00:00:00 2001
+From: Tim Stahlhut <stahta01@gmail.com>
+Date: Thu, 27 Jun 2019 09:37:37 -0400
+Subject: handle use mingw ansi stdio
+
+Created by someone other than me.
+---
+ gcc/config/i386/xm-mingw32.h | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/gcc/config/i386/xm-mingw32.h b/gcc/config/i386/xm-mingw32.h
+index e0dd3f37211..36febb72848 100644
+--- a/gcc/config/i386/xm-mingw32.h
++++ b/gcc/config/i386/xm-mingw32.h
+@@ -30,6 +30,10 @@ along with GCC; see the file COPYING3.  If not see
  /*  The st_ino field of struct stat is always 0.  */
  #define HOST_LACKS_INODE_NUMBERS
  
@@ -11,3 +23,4 @@
 +#else
 +#define HOST_LONG_LONG_FORMAT "ll"
 +#endif
+-- 

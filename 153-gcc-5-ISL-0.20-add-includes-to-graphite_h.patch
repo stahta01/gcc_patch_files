@@ -1,25 +1,30 @@
-From a19a875c25d4db94f5929772b66b299938e1fa87 Mon Sep 17 00:00:00 2001
+From c26cd3ab670a9ff831e9aaddaec06278d67ed106 Mon Sep 17 00:00:00 2001
 From: Tim Stahlhut <stahta01@gmail.com>
-Date: Sun, 7 Jul 2019 09:10:55 -0400
+Date: Sun, 7 Jul 2019 15:08:07 -0400
 Subject: ISL-0.20-add-includes-to-graphite_h
 
 ---
- gcc/graphite.h | 2 ++
- 1 file changed, 2 insertions(+)
+ gcc/graphite.h | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
 
 diff --git a/gcc/graphite.h b/gcc/graphite.h
-index 159db971721..25794a32e02 100644
+index 7c3ccc09359..25794a32e02 100644
 --- a/gcc/graphite.h
 +++ b/gcc/graphite.h
-@@ -39,6 +39,8 @@ along with GCC; see the file COPYING3.  If not see
- #ifdef HAVE_ISL_OPTIONS_SET_SCHEDULE_SERIALIZE_SCCS
- /* isl 0.15 or later.  */
- #include <isl/schedule_node.h>
+@@ -36,7 +36,14 @@ along with GCC; see the file COPYING3.  If not see
+ #include <isl/schedule.h>
+ #include <isl/ast_build.h>
+ 
+-#ifndef HAVE_ISL_OPTIONS_SET_SCHEDULE_SERIALIZE_SCCS
++#ifdef HAVE_ISL_OPTIONS_SET_SCHEDULE_SERIALIZE_SCCS
++/* isl 0.15 or later.  */
++#include <isl/schedule_node.h>
 +#include <isl/id.h>
 +#include <isl/space.h>
- 
- #else
- /* isl 0.14 or 0.13.  */
++
++#else
++/* isl 0.14 or 0.13.  */
+ # define isl_stat int
+ # define isl_stat_ok 0
+ #endif
 -- 
-2.22.0.windows.1
-

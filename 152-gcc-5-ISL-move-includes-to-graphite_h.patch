@@ -1,0 +1,272 @@
+From b6283c0599dc6fc61e11b75ec729df9284b031c2 Mon Sep 17 00:00:00 2001
+From: Tim Stahlhut <stahta01@gmail.com>
+Date: Sun, 7 Jul 2019 08:50:07 -0400
+Subject: ISL move includes to graphite.h
+
+---
+ gcc/graphite-blocking.c          |  8 --------
+ gcc/graphite-dependences.c       |  9 ---------
+ gcc/graphite-interchange.c       | 19 -------------------
+ gcc/graphite-isl-ast-to-gimple.c | 18 ------------------
+ gcc/graphite-optimize-isl.c      | 12 ------------
+ gcc/graphite-poly.c              | 20 --------------------
+ gcc/graphite-scop-detection.c    |  7 -------
+ gcc/graphite-sese-to-poly.c      | 19 -------------------
+ gcc/graphite.c                   |  8 --------
+ gcc/graphite.h                   | 21 ++++++++++++++++++++-
+ 10 files changed, 20 insertions(+), 121 deletions(-)
+
+diff --git a/gcc/graphite-blocking.c b/gcc/graphite-blocking.c
+index 5a4c3f1d770..c789a831aa4 100644
+--- a/gcc/graphite-blocking.c
++++ b/gcc/graphite-blocking.c
+@@ -23,14 +23,6 @@ along with GCC; see the file COPYING3.  If not see
+ 
+ #include "config.h"
+ 
+-#ifdef HAVE_isl
+-#include <isl/constraint.h>
+-#include <isl/set.h>
+-#include <isl/map.h>
+-#include <isl/union_map.h>
+-#include <isl/constraint.h>
+-#endif
+-
+ #include "system.h"
+ #include "coretypes.h"
+ #include "hash-set.h"
+diff --git a/gcc/graphite-dependences.c b/gcc/graphite-dependences.c
+index 0b5d4f53510..725156fb79e 100644
+--- a/gcc/graphite-dependences.c
++++ b/gcc/graphite-dependences.c
+@@ -21,15 +21,6 @@ along with GCC; see the file COPYING3.  If not see
+ 
+ #include "config.h"
+ 
+-#ifdef HAVE_isl
+-#include <isl/constraint.h>
+-#include <isl/set.h>
+-#include <isl/map.h>
+-#include <isl/union_map.h>
+-#include <isl/flow.h>
+-#include <isl/constraint.h>
+-#endif
+-
+ #include "system.h"
+ #include "coretypes.h"
+ #include "hash-set.h"
+diff --git a/gcc/graphite-interchange.c b/gcc/graphite-interchange.c
+index 1b7a3340a54..0a97f98311f 100644
+--- a/gcc/graphite-interchange.c
++++ b/gcc/graphite-interchange.c
+@@ -23,25 +23,6 @@ along with GCC; see the file COPYING3.  If not see
+ 
+ #include "config.h"
+ 
+-#ifdef HAVE_isl
+-#include <isl/constraint.h>
+-#include <isl/aff.h>
+-#include <isl/set.h>
+-#include <isl/map.h>
+-#include <isl/union_map.h>
+-#include <isl/ilp.h>
+-#include <isl/val.h>
+-
+-/* Since ISL-0.13, the extern is in val_gmp.h.  */
+-#if !defined(HAVE_ISL_SCHED_CONSTRAINTS_COMPUTE_SCHEDULE) && defined(__cplusplus)
+-extern "C" {
+-#endif
+-#include <isl/val_gmp.h>
+-#if !defined(HAVE_ISL_SCHED_CONSTRAINTS_COMPUTE_SCHEDULE) && defined(__cplusplus)
+-}
+-#endif
+-#endif
+-
+ #include "system.h"
+ #include "coretypes.h"
+ #include "hash-set.h"
+diff --git a/gcc/graphite-isl-ast-to-gimple.c b/gcc/graphite-isl-ast-to-gimple.c
+index 5b87bdc14ec..7df16284962 100644
+--- a/gcc/graphite-isl-ast-to-gimple.c
++++ b/gcc/graphite-isl-ast-to-gimple.c
+@@ -20,24 +20,6 @@ along with GCC; see the file COPYING3.  If not see
+ 
+ #include "config.h"
+ 
+-#ifdef HAVE_isl
+-#include <isl/constraint.h>
+-#include <isl/set.h>
+-#include <isl/union_set.h>
+-#include <isl/map.h>
+-#include <isl/union_map.h>
+-#include <isl/ast_build.h>
+-
+-/* Since ISL-0.13, the extern is in val_gmp.h.  */
+-#if !defined(HAVE_ISL_SCHED_CONSTRAINTS_COMPUTE_SCHEDULE) && defined(__cplusplus)
+-extern "C" {
+-#endif
+-#include <isl/val_gmp.h>
+-#if !defined(HAVE_ISL_SCHED_CONSTRAINTS_COMPUTE_SCHEDULE) && defined(__cplusplus)
+-}
+-#endif
+-#endif
+-
+ #define INCLUDE_MAP
+ #include "system.h"
+ #include "coretypes.h"
+diff --git a/gcc/graphite-optimize-isl.c b/gcc/graphite-optimize-isl.c
+index 3eb3156e6b7..35ebd10e36d 100644
+--- a/gcc/graphite-optimize-isl.c
++++ b/gcc/graphite-optimize-isl.c
+@@ -20,18 +20,6 @@ along with GCC; see the file COPYING3.  If not see
+ 
+ #include "config.h"
+ 
+-#ifdef HAVE_isl
+-#include <isl/constraint.h>
+-#include <isl/set.h>
+-#include <isl/union_set.h>
+-#include <isl/map.h>
+-#include <isl/union_map.h>
+-#include <isl/schedule.h>
+-#include <isl/band.h>
+-#include <isl/aff.h>
+-#include <isl/options.h>
+-#endif
+-
+ #include "system.h"
+ #include "coretypes.h"
+ #include "hash-set.h"
+diff --git a/gcc/graphite-poly.c b/gcc/graphite-poly.c
+index e7b443c8e0b..04093bc0713 100644
+--- a/gcc/graphite-poly.c
++++ b/gcc/graphite-poly.c
+@@ -21,26 +21,6 @@ along with GCC; see the file COPYING3.  If not see
+ 
+ #include "config.h"
+ 
+-#ifdef HAVE_isl
+-#include <isl/constraint.h>
+-#include <isl/set.h>
+-#include <isl/map.h>
+-#include <isl/union_map.h>
+-#include <isl/constraint.h>
+-#include <isl/ilp.h>
+-#include <isl/aff.h>
+-#include <isl/val.h>
+-
+-/* Since ISL-0.13, the extern is in val_gmp.h.  */
+-#if !defined(HAVE_ISL_SCHED_CONSTRAINTS_COMPUTE_SCHEDULE) && defined(__cplusplus)
+-extern "C" {
+-#endif
+-#include <isl/val_gmp.h>
+-#if !defined(HAVE_ISL_SCHED_CONSTRAINTS_COMPUTE_SCHEDULE) && defined(__cplusplus)
+-}
+-#endif
+-#endif
+-
+ #include "system.h"
+ #include "coretypes.h"
+ #include "diagnostic-core.h"
+diff --git a/gcc/graphite-scop-detection.c b/gcc/graphite-scop-detection.c
+index a743b0641d4..5bedf492f11 100644
+--- a/gcc/graphite-scop-detection.c
++++ b/gcc/graphite-scop-detection.c
+@@ -21,13 +21,6 @@ along with GCC; see the file COPYING3.  If not see
+ 
+ #include "config.h"
+ 
+-#ifdef HAVE_isl
+-#include <isl/constraint.h>
+-#include <isl/set.h>
+-#include <isl/map.h>
+-#include <isl/union_map.h>
+-#endif
+-
+ #include "system.h"
+ #include "coretypes.h"
+ #include "hash-set.h"
+diff --git a/gcc/graphite-sese-to-poly.c b/gcc/graphite-sese-to-poly.c
+index ec2f718a278..cc13e354ec1 100644
+--- a/gcc/graphite-sese-to-poly.c
++++ b/gcc/graphite-sese-to-poly.c
+@@ -20,25 +20,6 @@ along with GCC; see the file COPYING3.  If not see
+ 
+ #include "config.h"
+ 
+-#ifdef HAVE_isl
+-#include <isl/constraint.h>
+-#include <isl/set.h>
+-#include <isl/map.h>
+-#include <isl/union_map.h>
+-#include <isl/constraint.h>
+-#include <isl/aff.h>
+-#include <isl/val.h>
+-
+-/* Since ISL-0.13, the extern is in val_gmp.h.  */
+-#if !defined(HAVE_ISL_SCHED_CONSTRAINTS_COMPUTE_SCHEDULE) && defined(__cplusplus)
+-extern "C" {
+-#endif
+-#include <isl/val_gmp.h>
+-#if !defined(HAVE_ISL_SCHED_CONSTRAINTS_COMPUTE_SCHEDULE) && defined(__cplusplus)
+-}
+-#endif
+-#endif
+-
+ #include "system.h"
+ #include "coretypes.h"
+ #include "hash-set.h"
+diff --git a/gcc/graphite.c b/gcc/graphite.c
+index 44222825293..0c1d7e49357 100644
+--- a/gcc/graphite.c
++++ b/gcc/graphite.c
+@@ -34,14 +34,6 @@ along with GCC; see the file COPYING3.  If not see
+ 
+ #include "config.h"
+ 
+-#ifdef HAVE_isl
+-#include <isl/constraint.h>
+-#include <isl/set.h>
+-#include <isl/map.h>
+-#include <isl/options.h>
+-#include <isl/union_map.h>
+-#endif
+-
+ #include "system.h"
+ #include "coretypes.h"
+ #include "diagnostic-core.h"
+diff --git a/gcc/graphite.h b/gcc/graphite.h
+index 29e36dd6140..159db971721 100644
+--- a/gcc/graphite.h
++++ b/gcc/graphite.h
+@@ -22,7 +22,26 @@ along with GCC; see the file COPYING3.  If not see
+ #ifndef GCC_GRAPHITE_POLY_H
+ #define GCC_GRAPHITE_POLY_H
+ 
+-#ifndef HAVE_ISL_OPTIONS_SET_SCHEDULE_SERIALIZE_SCCS
++#include "sese.h"
++#include <isl/options.h>
++#include <isl/val_gmp.h>
++#include <isl/set.h>
++#include <isl/union_set.h>
++#include <isl/map.h>
++#include <isl/union_map.h>
++#include <isl/aff.h>
++#include <isl/constraint.h>
++#include <isl/flow.h>
++#include <isl/ilp.h>
++#include <isl/schedule.h>
++#include <isl/ast_build.h>
++
++#ifdef HAVE_ISL_OPTIONS_SET_SCHEDULE_SERIALIZE_SCCS
++/* isl 0.15 or later.  */
++#include <isl/schedule_node.h>
++
++#else
++/* isl 0.14 or 0.13.  */
+ # define isl_stat int
+ # define isl_stat_ok 0
+ #endif
+-- 
+2.22.0.windows.1
+

@@ -1,0 +1,25 @@
+From a19a875c25d4db94f5929772b66b299938e1fa87 Mon Sep 17 00:00:00 2001
+From: Tim Stahlhut <stahta01@gmail.com>
+Date: Sun, 7 Jul 2019 09:10:55 -0400
+Subject: ISL-0.20-add-includes-to-graphite_h
+
+---
+ gcc/graphite.h | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/gcc/graphite.h b/gcc/graphite.h
+index 159db971721..25794a32e02 100644
+--- a/gcc/graphite.h
++++ b/gcc/graphite.h
+@@ -39,6 +39,8 @@ along with GCC; see the file COPYING3.  If not see
+ #ifdef HAVE_ISL_OPTIONS_SET_SCHEDULE_SERIALIZE_SCCS
+ /* isl 0.15 or later.  */
+ #include <isl/schedule_node.h>
++#include <isl/id.h>
++#include <isl/space.h>
+ 
+ #else
+ /* isl 0.14 or 0.13.  */
+-- 
+2.22.0.windows.1
+

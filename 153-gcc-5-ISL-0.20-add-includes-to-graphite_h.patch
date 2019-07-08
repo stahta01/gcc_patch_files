@@ -1,19 +1,36 @@
-From c26cd3ab670a9ff831e9aaddaec06278d67ed106 Mon Sep 17 00:00:00 2001
+From 08ed7a80f9a1ad1fc8009a3389fc24b513681d46 Mon Sep 17 00:00:00 2001
 From: Tim Stahlhut <stahta01@gmail.com>
 Date: Sun, 7 Jul 2019 15:08:07 -0400
-Subject: ISL-0.20-add-includes-to-graphite_h
+Subject: ISL 0.20 add includes to graphite.h
+
+And, remove two older includes.
 
 ---
- gcc/graphite.h | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
+ gcc/graphite.h | 12 +++++++++---
+ 1 file changed, 9 insertions(+), 3 deletions(-)
 
 diff --git a/gcc/graphite.h b/gcc/graphite.h
-index 7c3ccc09359..25794a32e02 100644
+index cc621b66680..72b553b6d8a 100644
 --- a/gcc/graphite.h
 +++ b/gcc/graphite.h
-@@ -36,7 +36,14 @@ along with GCC; see the file COPYING3.  If not see
+@@ -24,21 +24,27 @@ along with GCC; see the file COPYING3.  If not see
+ 
+ #include "sese.h"
+ #include <isl/options.h>
++#include <isl/ctx.h>
+ #include <isl/val_gmp.h>
+ #include <isl/set.h>
+ #include <isl/union_set.h>
+ #include <isl/map.h>
+ #include <isl/union_map.h>
+-#include <isl/band.h>
+ #include <isl/aff.h>
+ #include <isl/constraint.h>
+ #include <isl/flow.h>
+ #include <isl/ilp.h>
  #include <isl/schedule.h>
  #include <isl/ast_build.h>
+-#include <isl/val.h>
  
 -#ifndef HAVE_ISL_OPTIONS_SET_SCHEDULE_SERIALIZE_SCCS
 +#ifdef HAVE_ISL_OPTIONS_SET_SCHEDULE_SERIALIZE_SCCS

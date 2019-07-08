@@ -21,8 +21,10 @@ diff --git a/gcc/graphite-blocking.c b/gcc/graphite-blocking.c
 index 5a4c3f1d770..c789a831aa4 100644
 --- a/gcc/graphite-blocking.c
 +++ b/gcc/graphite-blocking.c
-@@ -23,14 +23,6 @@ along with GCC; see the file COPYING3.  If not see
+@@ -23,14 +23,8 @@ along with GCC; see the file COPYING3.  If not see
  
++#define USES_ISL
++
  #include "config.h"
  
 -#ifdef HAVE_isl
@@ -261,7 +263,7 @@ diff --git a/gcc/graphite.h b/gcc/graphite.h
 index 29e36dd6140..7c3ccc09359 100644
 --- a/gcc/graphite.h
 +++ b/gcc/graphite.h
-@@ -22,6 +22,20 @@ along with GCC; see the file COPYING3.  If not see
+@@ -22,6 +22,22 @@ along with GCC; see the file COPYING3.  If not see
  #ifndef GCC_GRAPHITE_POLY_H
  #define GCC_GRAPHITE_POLY_H
  
@@ -272,12 +274,14 @@ index 29e36dd6140..7c3ccc09359 100644
 +#include <isl/union_set.h>
 +#include <isl/map.h>
 +#include <isl/union_map.h>
++#include <isl/band.h>
 +#include <isl/aff.h>
 +#include <isl/constraint.h>
 +#include <isl/flow.h>
 +#include <isl/ilp.h>
 +#include <isl/schedule.h>
 +#include <isl/ast_build.h>
++#include <isl/val.h>
 +
  #ifndef HAVE_ISL_OPTIONS_SET_SCHEDULE_SERIALIZE_SCCS
  # define isl_stat int

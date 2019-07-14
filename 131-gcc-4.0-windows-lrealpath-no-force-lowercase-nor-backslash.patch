@@ -1,15 +1,26 @@
-From 6ee5629570f76f89a9735f998bef58491e67d790 Mon Sep 17 00:00:00 2001
-From: Tim Stahlhut <stahta01@gmail.com>
-Date: Thu, 27 Jun 2019 09:38:31 -0400
-Subject: windows lrealpath no force lowercase nor backslash
+From 233bc23e32c5213255d8391dede53aa0b61ec23f Mon Sep 17 00:00:00 2001
+From: Ray Donnelly <mingw.android@gmail.com>
+Date: Wed, 5 Aug 2015 23:36:09 +0100
+Subject: Windows: Use '/' not '\' in progpath and leave case as-is
 
-Created by someone other than me.
+Windows can handle both '/' and '\' dirseps. GCC will
+have been built using Cygwin, MSYS* or cross-compiled
+from a system where dirsep is '/' so it is cleaner to
+force the dirseps to be '/' and keep the case as-is.
+
+This way, the value will be consistent with the build
+system and string operations, be they internal to GCC
+or external to it (e.g. processing map files with sed)
+have a better chance of working as expected.
+
+A concrete instance of when this matters is when cross
+compiling GNU/Linux glibc on Windows.
 ---
  libiberty/lrealpath.c | 19 +++++++++++++++----
  1 file changed, 15 insertions(+), 4 deletions(-)
 
 diff --git a/libiberty/lrealpath.c b/libiberty/lrealpath.c
-index b27c8de990e..423d1286071 100644
+index b27c8de..8165984 100644
 --- a/libiberty/lrealpath.c
 +++ b/libiberty/lrealpath.c
 @@ -138,15 +138,26 @@ lrealpath (const char *filename)
@@ -26,8 +37,8 @@ index b27c8de990e..423d1286071 100644
 -	   Canonicalize to lowercase, using the codepage associated
 -	   with the process locale.  */
 -        CharLowerBuff (buf, len);
-+	/* Turn all back slashes back back into forward slashes
-+	   and don't make it all lowercase.
++	/* Turn all back slashes back into forward slashes
++	   and don't make it lowercase.
 +	   Rationale:
 +	   Windows is as happy with / as it is with \. This will
 +	   have been built using Cygwin, MSYS* or cross-compiled

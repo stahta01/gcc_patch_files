@@ -1,18 +1,23 @@
-From 737d284556dc37c51b0251edd411f51c5d83e821 Mon Sep 17 00:00:00 2001
-From: Tim Stahlhut <stahta01@gmail.com>
-Date: Wed, 26 Jun 2019 19:25:45 -0400
-Subject: fix for windows not minding non existant parent dirs
+From 9f49390e2cd9085ca1cc03906a146861dbe8135f Mon Sep 17 00:00:00 2001
+From: Ray Donnelly <mingw.android@gmail.com>
+Date: Wed, 5 Aug 2015 23:36:07 +0100
+Subject: [PATCH 03/15] Windows: Follow Posix dir-exists semantics more closely
 
-Created by someone other than me.
+Make Windows behave the same as Posix in the consideration
+of whether folder "/doesnt-exist/.." is a valid
+path. In Posix, it isn't.
+
+A concrete instance of when this matters is when cross
+compiling GNU/Linux glibc on Windows.
 ---
- libcpp/files.c | 87 ++++++++++++++++++++++++++++++++++++++++++++++++++
+ libcpp/files.c | 87 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
  1 file changed, 87 insertions(+)
 
 diff --git a/libcpp/files.c b/libcpp/files.c
-index 29ccf3b7013..13cae5e6e2b 100644
+index ea2cc23..ac17272 100644
 --- a/libcpp/files.c
 +++ b/libcpp/files.c
-@@ -32,6 +32,13 @@ along with this program; see the file COPYING3.  If not see
+@@ -30,6 +30,13 @@ along with this program; see the file COPYING3.  If not see
  #include "md5.h"
  #include <dirent.h>
  
@@ -26,7 +31,7 @@ index 29ccf3b7013..13cae5e6e2b 100644
  /* Variable length record files on VMS will have a stat size that includes
     record control characters that won't be included in the read size.  */
  #ifdef VMS
-@@ -197,6 +204,49 @@ static int pchf_save_compare (const void *e1, const void *e2);
+@@ -198,6 +205,49 @@ static int pchf_save_compare (const void *e1, const void *e2);
  static int pchf_compare (const void *d_p, const void *e_p);
  static bool check_file_against_entries (cpp_reader *, _cpp_file *, bool);
  
@@ -76,7 +81,7 @@ index 29ccf3b7013..13cae5e6e2b 100644
  /* Given a filename in FILE->PATH, with the empty string interpreted
     as <stdin>, open it.
  
-@@ -226,6 +276,43 @@ open_file (_cpp_file *file)
+@@ -227,6 +277,43 @@ open_file (_cpp_file *file)
      }
    else
      file->fd = open (file->path, O_RDONLY | O_NOCTTY | O_BINARY, 0666);
@@ -112,7 +117,7 @@ index 29ccf3b7013..13cae5e6e2b 100644
 +	          file->fd = -1;
 +	          return false;
 +	        }
-+	      *dirsep = dirsepc;
++	      *dirsep++ = dirsepc;
 +	    }
 +	}
 +    }

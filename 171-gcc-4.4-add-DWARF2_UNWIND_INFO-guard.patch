@@ -25,5 +25,3 @@ index c4812eac090..92fd4757aba 100644
  	    /* There's no telling what that did to the condition codes.  */
  	    CC_STATUS_INIT;
 -- 
-2.22.0.windows.1
-

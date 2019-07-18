@@ -118,5 +118,3 @@ index c17330ab9da..3a604302bae 100644
  @itemx MULT_EXPR
  These nodes represent various binary arithmetic operations.
 --   
-2.19.1.windows.1
-

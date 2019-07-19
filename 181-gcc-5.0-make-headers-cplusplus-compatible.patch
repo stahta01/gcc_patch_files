@@ -1,8 +1,19 @@
---- gcc-5.1.0/gcc/config/i386/xmmintrin.h.orig	2013-01-18 14:57:27.762645582 +0100
-+++ gcc-5.1.0/gcc/config/i386/xmmintrin.h	2013-01-18 14:58:27.604561940 +0100
-@@ -37,6 +37,10 @@
- /* Get _mm_malloc () and _mm_free ().  */
- #include <mm_malloc.h>
+From af969cbedf4264b4cbc120608c3405df0b56cffd Mon Sep 17 00:00:00 2001
+From: Tim Stahlhut <stahta01@gmail.com>
+Date: Thu, 18 Jul 2019 23:53:35 -0400
+Subject: Add extern "C" to header
+
+---
+ gcc/config/i386/xmmintrin.h | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/gcc/config/i386/xmmintrin.h b/gcc/config/i386/xmmintrin.h
+index 9cd3fa7d079..9334f270f39 100644
+--- a/gcc/config/i386/xmmintrin.h
++++ b/gcc/config/i386/xmmintrin.h
+@@ -64,6 +64,10 @@ _mm_prefetch (const void *__P, enum _mm_hint __I)
+ #define __DISABLE_SSE__
+ #endif /* __SSE__ */
  
 +#ifdef __cplusplus
 +extern "C" {
@@ -11,7 +22,7 @@
  /* The Intel API is flexible enough that we must allow aliasing with other
     vector types, and their scalar components.  */
  typedef float __m128 __attribute__ ((__vector_size__ (16), __may_alias__));
-@@ -1241,6 +1245,10 @@
+@@ -1245,6 +1249,10 @@ do {									\
    (row3) = __builtin_ia32_movhlps (__t3, __t2);				\
  } while (0)
  
@@ -20,5 +31,6 @@
 +#endif
 +
  /* For backward source compatibility.  */
- #ifdef __SSE2__
  # include <emmintrin.h>
+ 
+-- 

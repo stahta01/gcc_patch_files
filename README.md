@@ -6,6 +6,6 @@ Patch files for GCC
 13x patches are msys2-mingw changes
 14x patches are GCC internal library changes
 15x patches are ISL changes
-16x patches are build fixes created by others
+16x patches are misc. ones that likely need moved
 17x patches are for building cross compilers
 18x patches are c++ changes

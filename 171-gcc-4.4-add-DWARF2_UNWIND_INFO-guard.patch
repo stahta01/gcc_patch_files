@@ -1,5 +1,5 @@
 From 0c8cf285483177b954cbfe883c4f5d429f470194 Mon Sep 17 00:00:00 2001
-From: Tim S <tim.stahlhut@gmail.com>
+From: Tim S <stahta01@gmail.com>
 Date: Sun, 10 Feb 2019 18:52:13 -0500
 Subject: code fix: add DWARF2_UNWIND_INFO guard
 

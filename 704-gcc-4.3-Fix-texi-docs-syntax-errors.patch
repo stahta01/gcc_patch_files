@@ -1,18 +1,32 @@
-From e9932a88332bc4124558ff2147a3733fe5307148 Mon Sep 17 00:00:00 2001
+From 88a3fc6f5a341cd8b121aad8446676d52a102e65 Mon Sep 17 00:00:00 2001
 From: Tim S <stahta01@gmail.com>
-Date: Sun, 30 Dec 2018 09:46:42 -0500
+Date: Sun, 30 Oct 2022 16:22:43 -0400
 Subject: Fix texi docs syntax errors
 
 ---
- gcc/doc/c-tree.texi  | 4 ++--
- gcc/doc/cppopts.texi | 2 +-
- gcc/doc/extend.texi  | 4 ++++
- gcc/doc/gcc.texi     | 4 ++--
- gcc/doc/invoke.texi  | 4 ++--
- 5 files changed, 11 insertions(+), 7 deletions(-)
+ gcc/ada/gnat-style.texi | 2 +-
+ gcc/doc/c-tree.texi     | 4 ++--
+ gcc/doc/cppopts.texi    | 2 +-
+ gcc/doc/extend.texi     | 4 ++++
+ gcc/doc/gcc.texi        | 4 ++--
+ gcc/doc/invoke.texi     | 4 ++--
+ 6 files changed, 12 insertions(+), 8 deletions(-)
 
+diff --git a/gcc/ada/gnat-style.texi b/gcc/ada/gnat-style.texi
+index 4600d1fd849..b28d133c7c0 100644
+--- a/gcc/ada/gnat-style.texi
++++ b/gcc/ada/gnat-style.texi
+@@ -42,7 +42,7 @@
+ @titlepage
+ @titlefont{GNAT Coding Style:}
+ @sp 1
+-@title @hfill A Guide for GNAT Developers
++@title A Guide for GNAT Developers
+ @subtitle GNAT, The GNU Ada Compiler
+ @versionsubtitle
+ @author Ada Core Technologies, Inc.
 diff --git a/gcc/doc/c-tree.texi b/gcc/doc/c-tree.texi
-index d72768944..7caac80e5 100644
+index d7276894432..7caac80e5d4 100644
 --- a/gcc/doc/c-tree.texi
 +++ b/gcc/doc/c-tree.texi
 @@ -2325,13 +2325,13 @@ generate these expressions anyhow, if it can tell that strictness does
@@ -32,7 +46,7 @@ index d72768944..7caac80e5 100644
  @itemx MULT_EXPR
  These nodes represent various binary arithmetic operations.
 diff --git a/gcc/doc/cppopts.texi b/gcc/doc/cppopts.texi
-index dbc8f0e6e..6d5d96280 100644
+index dbc8f0e6e67..6d5d9628037 100644
 --- a/gcc/doc/cppopts.texi
 +++ b/gcc/doc/cppopts.texi
 @@ -754,7 +754,7 @@ Replacement:      [    ]    @{    @}    #    \    ^    |    ~
@@ -45,7 +59,7 @@ index dbc8f0e6e..6d5d96280 100644
  @opindex help
  @opindex target-help
 diff --git a/gcc/doc/extend.texi b/gcc/doc/extend.texi
-index 61376ce30..c320c4b64 100644
+index 61376ce3026..c320c4b642a 100644
 --- a/gcc/doc/extend.texi
 +++ b/gcc/doc/extend.texi
 @@ -4231,6 +4231,9 @@ and caught in another, the class must have default visibility.
@@ -67,7 +81,7 @@ index 61376ce30..c320c4b64 100644
  @itemx gcc_struct
  @cindex @code{ms_struct}
 diff --git a/gcc/doc/gcc.texi b/gcc/doc/gcc.texi
-index baf4173c7..79cc41d53 100644
+index baf4173c787..79cc41d5346 100644
 --- a/gcc/doc/gcc.texi
 +++ b/gcc/doc/gcc.texi
 @@ -86,9 +86,9 @@ Published by:
@@ -83,7 +97,7 @@ index baf4173c7..79cc41d53 100644
  @tab Tel 617-542-5942
  @item Boston, MA 02110-1301 USA
 diff --git a/gcc/doc/invoke.texi b/gcc/doc/invoke.texi
-index 7983dd685..e4b14af1f 100644
+index 7983dd6850f..e4b14af1f97 100644
 --- a/gcc/doc/invoke.texi
 +++ b/gcc/doc/invoke.texi
 @@ -958,7 +958,7 @@ instantiation), or a library unit renaming declaration (a package,

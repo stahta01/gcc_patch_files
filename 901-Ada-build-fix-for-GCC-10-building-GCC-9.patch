@@ -5,6 +5,8 @@ Subject: Export __gnat_begin_handler_v1 and __gnat_end_handler_v1
 
 Patch edited by Tim S.
 
+This patch is to be used only to create an GCC Compiler with Ada;
+then that compiler needs to be rebuilt without this patch.
 ---
  gcc/ada/libgnat/a-exexpr.adb  | 188 +++++++++++++++++++++++++++++++++-
 

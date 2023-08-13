@@ -6,6 +6,9 @@ Subject: Ada build fix for GCC 5 building GCC 4.9
 A small part of SVN r219238 and r212805
 
 With Modifications by Tim S.
+
+This patch is to be used only to create an GCC Compiler with Ada;
+then that compiler needs to be rebuilt without this patch.
 ---
  gcc/ada/adaint.c                   |   6 +-
  gcc/ada/gcc-interface/Make-lang.in |   6 +-

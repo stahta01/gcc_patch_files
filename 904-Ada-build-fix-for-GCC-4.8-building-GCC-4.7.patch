@@ -7,6 +7,8 @@ A small part of SVN r187517
 
 With Modifications by Tim S.
 
+This patch is to be used only to create an GCC Compiler with Ada;
+then that compiler needs to be rebuilt without this patch.
 ---
  gcc/ada/a-except.adb               | 508 +++++++++++++++++++++-----
 
